@@ -1,0 +1,105 @@
+.el-steps{
+  margin-bottom: 20px;
+}
+
+.step{
+  h1{
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  .form-group{
+    margin-bottom: 20px;
+    label{
+      font-size: .9rem;
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+  .button-group{
+    @include flex(center, flex-end);
+  }
+  &.step2{
+    .name{
+      @include flex;
+      .input-group{
+        flex: 1;
+        margin-right: 10px;
+        &:last-of-type{
+          margin-right: 0;
+          margin-left: 10px;
+        }
+      }
+    }
+    .el-date-editor{
+      width: 100%;
+    }
+    .address{
+      .el-select{
+        width: 105px;
+      }
+      .input-group{
+        &:not(:last-of-type){
+          display: inline-block;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  &.step4{
+    .card-number{
+      .input-group{
+        @include flex;
+        .el-input{
+          text-align: center;
+          input{
+            padding-right: 15px;
+            text-align: center;
+          }
+          &:not(:last-of-type){
+            margin-right: 20px;
+            position: relative;
+            &:before{
+              position: absolute;
+              content: '-';
+              right: -13px;
+              height: 100%;
+              line-height: 40px;
+            }
+          }
+        }
+      }
+    }
+    .card-info{
+      @include flex;
+      .input-group{
+        flex: 1;
+        margin-right: 10px;
+        &:last-of-type{
+          margin-right: 0;
+          margin-left: 10px;
+        }
+      }
+    }
+    .card-detail{
+      @include flex;
+      .input-group{
+        flex: 1;
+        margin-right: 10px;
+        &:last-of-type{
+          flex: 2;
+          margin-right: 0;
+          margin-left: 10px;
+        }
+        .expire-group{
+          @include flex;
+          .el-input{
+            &:first-of-type{
+              margin-right: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
