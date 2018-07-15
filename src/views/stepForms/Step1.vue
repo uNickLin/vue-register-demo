@@ -1,7 +1,6 @@
 <template lang="pug">
   .step.step1
     h1 Create Account
-    p {{errors}}
     .form-group
       label Account
       input.input(
@@ -34,6 +33,7 @@
         type="password",
         v-model="passwordConfirm",
         name='passwordConfirm',
+        v-validate="{required: true, confirmed: password}",
         :class="{'input': true, 'is-danger': errors.has('passwordConfirm') }")
       span(
         v-show="errors.has('passwordConfirm')",
@@ -64,7 +64,7 @@
     },
     computed: {
       areAllFilled() {
-        if (this.account && this.password && this.password) return true
+        if (this.account && this.password && this.passwordConfirm) return true
         return false
       }
     }
