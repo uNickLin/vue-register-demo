@@ -6,7 +6,7 @@ import { Steps, Step, Select, Option, Input, DatePicker } from 'element-ui';
 import App from './App.vue'
 import ImgInputer from 'vue-img-inputer'
 import 'vue-img-inputer/dist/index.css'
-
+import VeeValidate from 'vee-validate';
 
 locale.use(lang)
 
@@ -16,6 +16,7 @@ Vue.use(Select)
 Vue.use(Option)
 Vue.use(Input)
 Vue.use(DatePicker)
+Vue.use(VeeValidate);
 
 Vue.component('ImgInputer', ImgInputer)
 
