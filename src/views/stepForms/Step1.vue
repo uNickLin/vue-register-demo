@@ -1,29 +1,49 @@
 <template lang="pug">
   .step.step1
     h1 Create Account
+    p {{errors}}
     .form-group
       label Account
-      el-input(
+      input.input(
+        type="email",
         placeholder="example@mail.com",
         v-model="account",
-        clearable)
+        v-validate="'required|email'",
+        name="email",
+        :class="{'input': true, 'is-danger': errors.has('email') }")
+      span(
+        v-show="errors.has('email')",
+        class="help is-danger") {{ errors.first('email') }}
 
     .form-group
       label Password
-      el-input(
-        type='password',
+      input(
+        type="password",
         v-model="password",
-        clearable)
+        name='password',
+        v-validate="'required|min: 6'",
+        ref='password',
+        :class="{'input': true, 'is-danger': errors.has('password') }")
+      span(
+        v-show="errors.has('password')",
+        class="help is-danger") {{ errors.first('password') }}
 
     .form-group
       label Confirm Password
-      el-input(
-        type='password',
+      input(
+        type="password",
         v-model="passwordConfirm",
-        clearable)
+        name='passwordConfirm',
+        :class="{'input': true, 'is-danger': errors.has('passwordConfirm') }")
+      span(
+        v-show="errors.has('passwordConfirm')",
+        class="help is-danger") {{ errors.first('passwordConfirm') }}
+
 
     .button-group
-      button.button.is-small.is-info(@click="stepPass") Next
+      button.button.is-small.is-info(
+        @click="stepPass",
+        :disabled='errors.items.length > 0 || !areAllFilled') Next
 
 </template>
 
@@ -40,6 +60,12 @@
     methods: {
       stepPass() {
         this.$emit('pass', 'step1')
+      }
+    },
+    computed: {
+      areAllFilled() {
+        if (this.account && this.password && this.password) return true
+        return false
       }
     }
   }
