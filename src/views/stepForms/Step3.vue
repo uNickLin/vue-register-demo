@@ -6,10 +6,13 @@
         v-model="file",
         theme="light",
         size="large",
+        @onChange='fileChange',
         placeholder='點擊或拖曳上傳',
         bottom-text='點擊或拖拽圖片以修改')
     .button-group
-      button.button.is-small.is-info(@click="stepPass") Next
+      button.button.is-small.is-info(
+        @click="stepPass",
+        :disabled='file === ""') Next
 </template>
 
 <script>
