@@ -5,19 +5,19 @@
       label Card Number
       .input-group
         el-input(
-          placeholder='6666'
+          placeholder='6666',
           v-model="cardNumber.card1",
           maxlength='4')
         el-input(
-          placeholder='6666'
+          placeholder='6666',
           v-model="cardNumber.card2",
           maxlength='4')
         el-input(
-          placeholder='6666'
+          placeholder='6666',
           v-model="cardNumber.card3",
           maxlength='4')
         el-input(
-          placeholder='6666'
+          placeholder='6666',
           v-model="cardNumber.card4",
           maxlength='4')
     .form-group.card-info
@@ -68,6 +68,11 @@
     methods: {
       stepPass() {
         this.$emit('pass', 'step4')
+      }
+    },
+    computed: {
+      fullCardNumber() {
+        return `${this.cardNumber.card1}-${this.cardNumber.card2}-${this.cardNumber.card3}-${this.cardNumber.card4}`
       }
     }
   }
