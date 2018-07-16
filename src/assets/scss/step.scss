@@ -10,10 +10,16 @@
   }
   .form-group{
     margin-bottom: 20px;
+    position: relative;
     label{
       font-size: .9rem;
       display: block;
       margin-bottom: 5px;
+    }
+    span.help.is-danger{
+      position: absolute;
+      bottom: -18px;
+      left: 0;
     }
   }
   .button-group{
@@ -42,6 +48,7 @@
         &:not(:last-of-type){
           display: inline-block;
           margin-right: 10px;
+          margin-bottom: 15px;
         }
       }
     }

@@ -4,20 +4,37 @@
     .form-group.name
       .input-group
         label First Name*
-        el-input(
+        input.input(
+          type="text",
           v-model="firstName",
-          clearable)
+          name='firstName',
+          v-validate="'required|alpha'",
+          :class="{'input': true, 'is-danger': errors.has('firstName') }")
+        span(
+          v-show="errors.has('firstName')",
+          class="help is-danger") {{ errors.first('firstName') }}
+
       .input-group
         label Last Name*
-        el-input(
+        input.input(
+          type="text",
           v-model="lastName",
-          clearable)
+          name='lastName',
+          v-validate="'required|alpha'",
+          :class="{'input': true, 'is-danger': errors.has('lastName') }")
+
     .form-group
       label Phone*
-      el-input(
-        placeholder='0987654321'
-        v-model="phone",
-        clearable)
+      input.input(
+          type="text",
+          v-model="phone",
+          name='phone',
+          v-validate="{ required: true, regex: /^([0-9]+)$/ }",
+          :class="{'input': true, 'is-danger': errors.has('phone') }")
+      span(
+        v-show="errors.has('phone')",
+        class="help is-danger") {{ errors.first('phone') }}
+
     .form-group
       label Birthdate*
       el-date-picker(
@@ -29,7 +46,8 @@
       .input-group
         el-select(
           size='small',
-          v-model="address.city")
+          v-model="address.city",
+          @change='changeCity')
           el-option(
             v-for="city in cities",
             :key="city.ctName",
@@ -38,7 +56,7 @@
       .input-group
         el-select(
           size='small',
-          :disabled='selectedCity === "" ? true : false',
+          :disabled='address.city === "" ? true : false',
           v-model="address.dist")
           el-option(
             v-for="dist in selectedDists",
@@ -46,9 +64,17 @@
             :label="dist",
             :value="dist")
       .input-group
+        input.input(
+          type="text",
+          v-model="address.detail",
+          name='addressDetail',
+          v-validate="'required'",
+          :class="{'input': true, 'is-danger': errors.has('addressDetail') }")
 
     .button-group
-      button.button.is-small.is-info(@click="stepPass") Next
+      button.button.is-small.is-info(
+        @click="stepPass",
+        :disabled='errors.items.length > 0 || !areAllFilled') Next
 </template>
 
 <script>
@@ -65,7 +91,6 @@
           dist: '',
           detail: ''
         },
-        selectedCity: '',
         cities: [
           {
             ctName: '台北市',
@@ -108,10 +133,31 @@
     },
     computed: {
       selectedDists() {
-        if(this.selectedCity === '') return []
+        if(this.address.city === '') return []
+        return this.cities.find(city => city.ctName === this.address.city).dists
+      },
+      areAllFilled() {
+        if (
+          this.firstName && 
+          this.lastName && 
+          this.phone &&
+          this.birthdate &&
+          this.address.city &&
+          this.address.dist &&
+          this.address.detail
+          ) return true
+          return false
+      }
+    },
+    watch: {
+      birthdate(oldVal, newVal) {
+        const dateFormat = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/
       }
     },
     methods: {
+      changeCity() {
+        this.address.dist = ''
+      },
       stepPass() {
         this.$emit('pass', 'step2')
       }
