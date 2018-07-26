@@ -1,5 +1,6 @@
 # vue-register-demo
 
+[DEMO](http://vregister.s3-website-ap-northeast-1.amazonaws.com)
 > A Vue.js project
 
 ## Build Setup
